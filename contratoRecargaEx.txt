@@ -1,0 +1,26 @@
+struct Recarga {
+    address usuario;
+    uint256 valor;   // em wei ou outra unidade
+    uint256 timestamp;
+    bool pago;
+}
+
+mapping(uint256 => Recarga) public recargas;
+uint256 public contadorRecargas;
+
+function registrarRecarga(address usuario, uint256 valor) public {
+    contadorRecargas++;
+    recargas[contadorRecargas] = Recarga(usuario, valor, block.timestamp, false);
+}
+
+function pagarRecarga(uint256 recargaId) public payable {
+    Recarga storage recarga = recargas[recargaId];
+    require(msg.sender == recarga.usuario, "Nao autorizado");
+    require(!recarga.pago, "Recarga ja paga");
+    require(msg.value >= recarga.valor, "Valor insuficiente");
+    recarga.pago = true;
+    // Transferir valor para o proprietário do sistema, por exemplo
+    payable(owner).transfer(msg.value);
+}
+
+// exemplo simples de contrato solidity para recarga do carro, incluindo usuario, data, valor e status

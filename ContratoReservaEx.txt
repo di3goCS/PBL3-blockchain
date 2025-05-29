@@ -1,0 +1,18 @@
+struct Reserva {
+    address usuario;
+    uint256 pontoId;
+    uint256 inicio;  // timestamp
+    uint256 fim;     // timestamp
+    bool ativa;
+}
+
+mapping(uint256 => Reserva) public reservas; // id da reserva para struct
+uint256 public contadorReservas;
+
+function reservarPonto(uint256 pontoId, uint256 inicio, uint256 fim) public {
+    // verifica disponibilidade, etc
+    contadorReservas++;
+    reservas[contadorReservas] = Reserva(msg.sender, pontoId, inicio, fim, true);
+}
+
+// exemplo simples de contrato de reserva contendo usuario, id do charger, data e status

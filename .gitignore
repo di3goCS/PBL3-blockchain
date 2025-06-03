@@ -1,0 +1,58 @@
+# Go build artifacts
+/go-client/bin/
+/go-client/*.exe
+/go-client/*.out
+/go-client/*.test
+
+# Go vendor directory
+/vendor/
+
+# Dependency directories
+node_modules/
+packages/
+.env
+.env.*
+
+# Solidity build artifacts
+/build/
+artifacts/
+cache/
+
+# Truffle artifacts
+migrations.log
+
+# Logs
+*.log
+
+# IDE and editor folders
+.vscode/
+.idea/
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Test coverage
+coverage/
+coverage.out
+
+# Ethereum keys and secrets
+keystore/
+*.key
+*.pem
+*.secret
+*.json
+
+# Ganache database
+*.db
+chaindata/
+geth/
+
+# Hardhat/Truffle artifacts
+typechain/

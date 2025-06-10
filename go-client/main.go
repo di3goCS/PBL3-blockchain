@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"fmt"
 	"log"
 	"math/big"
@@ -9,6 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+
+	"pbl3-blockchain/go-client/recarga"
+	"pbl3-blockchain/go-client/reserva"
 	// Importe aqui se seus bindings estiverem em um pacote diferente de 'main'
 	// Ex: "PBL3-Blockchain/go-client"
 )
@@ -32,7 +36,7 @@ func main() {
 	}
 
 	publicKey := privateKey.Public()
-	fromAddress := crypto.PubkeyToAddress(publicKey.(crypto.ECDSAPublicKey))
+	fromAddress := crypto.PubkeyToAddress(publicKey.(ecdsa.PublicKey))
 
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
@@ -60,7 +64,7 @@ func main() {
 	// As funções DeployRecargaVeiculo e DeployReservaPontoRecarga são geradas pelo abigen
 	// Se seus contratos Solidity se chamam RecargaVeiculo e ReservaPontoRecarga internamente,
 	// e os bindings estão no pacote 'main', o abigen gerou essas funções.
-	rechargeAddr, rechargeTx, rechargeInstance, err := DeployRecargaVeiculo(auth, client)
+	rechargeAddr, rechargeTx, _, err := recarga.DeployRecarga(auth, client)
 	if err != nil {
 		log.Fatalf("Falha ao implantar RecargaVeiculo: %v", err)
 	}
@@ -80,7 +84,7 @@ func main() {
 
 	// --- Exemplo de Implantação e Interação com ReservaPontoRecarga ---
 	fmt.Println("\n--- Contrato ReservaPontoRecarga ---")
-	reserveAddr, reserveTx, reserveInstance, err := DeployReservaPontoRecarga(auth, client)
+	reserveAddr, reserveTx, _, err := reserva.DeployReserva(auth, client)
 	if err != nil {
 		log.Fatalf("Falha ao implantar ReservaPontoRecarga: %v", err)
 	}

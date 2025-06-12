@@ -21,10 +21,10 @@ import (
 
 // Importante: A chave privada DEVE ser de uma conta com ETH no Ganache ou testnet
 // NUNCA USE CHAVES PRIVADAS REAIS EM CÓDIGO FONTE OU EM PRODUÇÃO!
-const privateKeyHex = "0x9a37b76a66fa0751eee9040b282122125413e461d8fdc3f4dfd50f2674b26e12" // <<<<< ATUALIZE AQUI
-const privateKeyHexWithout0x = "9a37b76a66fa0751eee9040b282122125413e461d8fdc3f4dfd50f2674b26e12"
+const privateKeyHex = "0xd0d25dd79bd8fc56cc4be007e07cf114e41430d3b1c108a597883e3c29967d1e" // <<<<< ATUALIZE AQUI
+const privateKeyHexWithout0x = "d0d25dd79bd8fc56cc4be007e07cf114e41430d3b1c108a597883e3c29967d1e"
 const ganacheURL = "http://127.0.0.1:7545" // <<<<< ATUALIZE AQUI (era 8545, agora 7545)
-const ganacheChainID = 5777                // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
+const ganacheChainID = 1337                // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
 
 func main() {
 	client, err := ethclient.Dial(ganacheURL)
@@ -151,13 +151,13 @@ func main() {
 
 		case "6":
 			fmt.Printf("-> Listar recargas do usuário %s\n", clientAddress)
-			recargasIDs, recargas, err := c.GetRecargasDoUsuario(clientAddress)
+			recargasIDs, recargas, pagos, timestamps, err := c.GetRecargasDoUsuario(clientAddress)
 			if err != nil {
 				fmt.Printf("Erro ao listar reservas do usuário: %v", err)
 			}
 			fmt.Println("Recargas: ")
 			for idx, recarga := range recargasIDs {
-				fmt.Printf("[%d] %d\n", recarga, recargas[idx])
+				fmt.Printf("ID: [%d] Valor: %d\n Pago: %t\n Data: %s", recarga, recargas[idx], pagos[idx], timestamps[idx])
 			}
 
 		case "0":

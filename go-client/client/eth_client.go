@@ -79,7 +79,7 @@ func (c *Client) PagarRecarga(recargaID *big.Int, valor *big.Int) error {
 	return nil
 }
 
-func (c *Client) GetRecargasDoUsuario(usuario common.Address) ([]*big.Int, []*big.Int, error) {
+func (c *Client) GetRecargasDoUsuario(usuario common.Address) ([]*big.Int, []*big.Int, []bool, []*big.Int, error) {
 	valores, err := c.RecargaContract.GetRecargasDoUsuario(&bind.CallOpts{
 		Pending: false,
 		From:    usuario,
@@ -87,10 +87,10 @@ func (c *Client) GetRecargasDoUsuario(usuario common.Address) ([]*big.Int, []*bi
 	}, usuario)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, nil, err
 	}
 
-	return valores.Ids, valores.Valores, nil
+	return valores.Ids, valores.Valores, valores.Pagos, valores.Timestamps, nil
 }
 
 // Cria nova instância do cliente de reserva

@@ -21,8 +21,8 @@ import (
 
 // Importante: A chave privada DEVE ser de uma conta com ETH no Ganache ou testnet
 // NUNCA USE CHAVES PRIVADAS REAIS EM CÓDIGO FONTE OU EM PRODUÇÃO!
-const privateKeyHex = "f277b86acbc98f73cdd0b339b8fa8e531653a6c4653044c77e801a756402a7f6" // <<<<< ATUALIZE AQUI
-const privateKeyHexWithout0x = "f277b86acbc98f73cdd0b339b8fa8e531653a6c4653044c77e801a756402a7f6"
+const privateKeyHex = "0x9a37b76a66fa0751eee9040b282122125413e461d8fdc3f4dfd50f2674b26e12" // <<<<< ATUALIZE AQUI
+const privateKeyHexWithout0x = "9a37b76a66fa0751eee9040b282122125413e461d8fdc3f4dfd50f2674b26e12"
 const ganacheURL = "http://127.0.0.1:7545" // <<<<< ATUALIZE AQUI (era 8545, agora 7545)
 const ganacheChainID = 5777                // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
 

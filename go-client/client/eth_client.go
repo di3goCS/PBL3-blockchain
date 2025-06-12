@@ -8,10 +8,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"pbl3-blockchain/go-client/recarga" // caminho para o pacote gerado via abigen
+	"pbl3-blockchain/go-client/recarga"
 	"pbl3-blockchain/go-client/reserva"
 )
 
@@ -149,7 +150,7 @@ func (c *Client) CancelarReserva(reservaId *big.Int) error {
 }
 
 // Função para listar as reservas de um usuário
-func (c *Client) GetReservasDoUsuario(usuario common.Address) ([]*big.Int, []*big.Int, error) {
+func (c *Client) GetReservasDoUsuario(usuario common.Address, ctx *types.Transaction) ([]*big.Int, []*big.Int, error) {
 	values, err := c.ReservaContract.GetReservasDoUsuario(&bind.CallOpts{
 		Pending: false,
 		From:    usuario,

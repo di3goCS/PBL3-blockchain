@@ -21,10 +21,10 @@ import (
 
 // Importante: A chave privada DEVE ser de uma conta com ETH no Ganache ou testnet
 // NUNCA USE CHAVES PRIVADAS REAIS EM CÓDIGO FONTE OU EM PRODUÇÃO!
-const privateKeyHex = "0xd0d25dd79bd8fc56cc4be007e07cf114e41430d3b1c108a597883e3c29967d1e" // <<<<< ATUALIZE AQUI
-const privateKeyHexWithout0x = "d0d25dd79bd8fc56cc4be007e07cf114e41430d3b1c108a597883e3c29967d1e"
+const privateKeyHex = "f277b86acbc98f73cdd0b339b8fa8e531653a6c4653044c77e801a756402a7f6" // <<<<< ATUALIZE AQUI
+const privateKeyHexWithout0x = "f277b86acbc98f73cdd0b339b8fa8e531653a6c4653044c77e801a756402a7f6"
 const ganacheURL = "http://127.0.0.1:7545" // <<<<< ATUALIZE AQUI (era 8545, agora 7545)
-const ganacheChainID = 1337                // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
+const ganacheChainID = 5777                // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
 
 func main() {
 	client, err := ethclient.Dial(ganacheURL)

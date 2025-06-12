@@ -37,14 +37,24 @@ contract RecargaVeiculo {
     }
 
 // RETORNA OS IDS DAS RECARGAS E OS SEUS VALORES ASSOCIADOS
-    function getRecargasDoUsuario(address usuario) public view returns (uint256[] memory ids, uint256[] memory valores) {
+    function getRecargasDoUsuario(address usuario) public view returns (
+        uint256[] memory ids,
+        uint256[] memory valores,
+        bool[] memory pagos,
+        uint256[] memory timestamps
+    ) {
         uint256[] memory idsUsuario = recargasPorUsuario[usuario];
         uint256[] memory valoresUsuario = new uint256[](idsUsuario.length);
+        bool[] memory pagosUsuario = new bool[](idsUsuario.length);
+        uint256[] memory timestampsUsuario = new uint256[](idsUsuario.length);
 
         for (uint256 i = 0; i < idsUsuario.length; i++) {
-            valoresUsuario[i] = recargas[idsUsuario[i]].valor;
+            Recarga memory r = recargas[idsUsuario[i]];
+            valoresUsuario[i] = r.valor;
+            pagosUsuario[i] = r.pago;
+            timestampsUsuario[i] = r.timestamp;
         }
 
-        return (idsUsuario, valoresUsuario);
+        return (idsUsuario, valoresUsuario, pagosUsuario, timestampsUsuario);
     }
 }

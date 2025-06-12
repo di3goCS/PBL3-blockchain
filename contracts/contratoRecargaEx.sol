@@ -29,7 +29,6 @@ contract RecargaVeiculo {
 // VERIFICA SE A RECARGA JÁ FOI PAGA, SE O USUÁRIO QUE ESTÁ TENTANDO PAGAR É O MESMO DO 
     function pagarRecarga(uint256 recargaId) public payable {
         Recarga storage recarga = recargas[recargaId];
-        require(msg.sender == recarga.usuario, "Nao autorizado");
         require(!recarga.pago, "Recarga ja paga");
         require(msg.value >= recarga.valor, "Valor insuficiente");
 

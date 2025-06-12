@@ -92,7 +92,7 @@ func main() {
 			fmt.Printf("-> Reservar ponto %d de %d até %d\n", pontoID, inicio, fim)
 			err := c.ReservarPonto(big.NewInt(pontoID), big.NewInt(inicio), big.NewInt(fim))
 			if err != nil {
-				fmt.Println("Erro ao reservar ponto")
+				fmt.Printf("Erro ao reservar ponto: %s", err)
 			}
 
 		case "2":

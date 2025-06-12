@@ -20,7 +20,8 @@ contract RecargaVeiculo {
     uint256 public contadorRecargas;
 
 // REGISTRA AS RECARGAS E ADD NO CONTADOR E MAPPING
-    function registrarRecarga(address usuario, uint256 valor) public {
+    function registrarRecarga(uint256 valor) public {
+        address usuario = msg.sender;
         contadorRecargas++;
         recargas[contadorRecargas] = Recarga(usuario, valor, block.timestamp, false);
         recargasPorUsuario[usuario].push(contadorRecargas);

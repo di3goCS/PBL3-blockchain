@@ -1,11 +1,25 @@
 services:
-  client:
+  client1:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         TARGET: client
-    container_name: cliente
+    container_name: cliente1
+    stdin_open: true
+    tty: true
+    environment:
+      - MQTT_BROKER=tcp://mqtt:1883
+    networks:
+      - appnet
+  
+  client2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TARGET: client
+    container_name: cliente2
     stdin_open: true
     tty: true
     environment:

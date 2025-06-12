@@ -6,6 +6,10 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"strings"
+	"strconv"
+	"os"
+	"bufio"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -24,6 +28,104 @@ const ganacheURL = "http://127.0.0.1:7545"                                    //
 const ganacheChainID = 5777                                                   // <<<<< ATUALIZE AQUI (era 1337, agora 5777)
 
 func main() {
+
+reader := bufio.NewReader(os.Stdin)
+
+	fmt.Println("=== MENU DE TESTE DO SISTEMA DE RECARGA ===")
+
+	for {
+		fmt.Println("\n--- MENU ---")
+		fmt.Println("1. Reservar ponto")
+		fmt.Println("2. Cancelar reserva")
+		fmt.Println("3. Listar reservas do usuário")
+		fmt.Println("4. Registrar recarga")
+		fmt.Println("5. Pagar recarga")
+		fmt.Println("6. Listar recargas do usuário")
+		fmt.Println("0. Sair")
+		fmt.Print("Escolha uma opção: ")
+
+		entrada, _ := reader.ReadString('\n')
+		entrada = strings.TrimSpace(entrada)
+
+		switch entrada {
+		case "1":
+			fmt.Print("Informe o ID do ponto: ")
+			pontoStr, _ := reader.ReadString('\n')
+			pontoID, _ := strconv.Atoi(strings.TrimSpace(pontoStr))
+
+			fmt.Print("Informe o horário de início (timestamp): ")
+			inicioStr, _ := reader.ReadString('\n')
+			inicio, _ := strconv.ParseInt(strings.TrimSpace(inicioStr), 10, 64)
+
+			fmt.Print("Informe o horário de fim (timestamp): ")
+			fimStr, _ := reader.ReadString('\n')
+			fim, _ := strconv.ParseInt(strings.TrimSpace(fimStr), 10, 64)
+
+			fmt.Printf("-> Reservar ponto %d de %d até %d\n", pontoID, inicio, fim)
+			// Chamada simulada:
+			// tx, err := reservaInstance.ReservarPonto(auth, big.NewInt(int64(pontoID)), big.NewInt(inicio), big.NewInt(fim))
+
+		case "2":
+			fmt.Print("Informe o ID da reserva a cancelar: ")
+			idStr, _ := reader.ReadString('\n')
+			id, _ := strconv.Atoi(strings.TrimSpace(idStr))
+
+			fmt.Printf("-> Cancelar reserva com ID %d\n", id)
+
+		case "3":
+			fmt.Print("Informe o endereço do usuário: ")
+			endereco, _ := reader.ReadString('\n')
+			endereco = strings.TrimSpace(endereco)
+
+			fmt.Printf("-> Listar reservas ativas de %s\n", endereco)
+
+		case "4":
+			fmt.Print("Informe o endereço do usuário: ")
+			endereco, _ := reader.ReadString('\n')
+			endereco = strings.TrimSpace(endereco)
+
+			fmt.Print("Informe o valor da recarga (em ETH): ")
+			valorStr, _ := reader.ReadString('\n')
+			valorEth, _ := strconv.ParseFloat(strings.TrimSpace(valorStr), 64)
+
+			wei := new(big.Int)
+			wei.SetString(fmt.Sprintf("%.0f", valorEth*1e18), 10)
+
+			fmt.Printf("-> Registrar recarga de %s no valor de %s wei\n", endereco, wei.String())
+
+		case "5":
+			fmt.Print("Informe o ID da recarga a pagar: ")
+			idStr, _ := reader.ReadString('\n')
+			id, _ := strconv.Atoi(strings.TrimSpace(idStr))
+
+			fmt.Print("Informe o valor do pagamento (em ETH): ")
+			valorStr, _ := reader.ReadString('\n')
+			valorEth, _ := strconv.ParseFloat(strings.TrimSpace(valorStr), 64)
+
+			wei := new(big.Int)
+			wei.SetString(fmt.Sprintf("%.0f", valorEth*1e18), 10)
+
+			fmt.Printf("-> Pagar recarga %d com %s wei\n", id, wei.String())
+
+		case "6":
+			fmt.Print("Informe o endereço do usuário: ")
+			endereco, _ := reader.ReadString('\n')
+			endereco = strings.TrimSpace(endereco)
+
+			fmt.Printf("-> Listar recargas do usuário %s\n", endereco)
+
+		case "0":
+			fmt.Println("Saindo...")
+			return
+
+		default:
+			fmt.Println("Opção inválida!")
+		}
+	}
+
+
+
+
 	client, err := ethclient.Dial(ganacheURL)
 	if err != nil {
 		log.Fatalf("Falha ao conectar ao Ethereum: %v", err)

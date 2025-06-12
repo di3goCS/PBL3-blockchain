@@ -1,0 +1,18 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TARGET: client
+    container_name: cliente
+    stdin_open: true
+    tty: true
+    environment:
+      - MQTT_BROKER=tcp://mqtt:1883
+    networks:
+      - appnet
+      
+networks:
+  appnet:
+    driver: bridge
